@@ -5,8 +5,10 @@ PAGE_PATH = "pages"
 DATABASE_PATH = "databases"
 NOTION_VERSION_STRING = "2021-08-16"
 
+
 class UnableToCompleteRequestException(Exception):
     pass
+
 
 class Client:
     def __init__(self, api_key):
@@ -34,31 +36,31 @@ class Client:
         if response.status_code != 200:
             raise UnableToCompleteRequestException(response.text)
         return response.text
-    
+
     def get_database_contents(self, database_id):
         path = f"{DATABASE_PATH}/{database_id}/query"
         response = self.__post(path, data=None)
         if response.status_code != 200:
             raise UnableToCompleteRequestException(response.text)
         return response.text
-    
+
     def create_page(self, data):
         path = f"{PAGE_PATH}"
-        response =  self.__post(path, data)
+        response = self.__post(path, data)
         if response.status_code != 200:
             raise UnableToCompleteRequestException(response.text)
         return response.text
 
     def update_page_content(self, page_id, data):
-        path= f"{PAGE_PATH}/{page_id}"
-        response =  self.__patch(path, data)
+        path = f"{PAGE_PATH}/{page_id}"
+        response = self.__patch(path, data)
         if response.status_code != 200:
             raise UnableToCompleteRequestException(response.text)
         return response.text
 
     def get_page(self, page_id):
         path = f"{PAGE_PATH}/{page_id}"
-        response =  self.__get(path)
+        response = self.__get(path)
         if response.status_code != 200:
             raise UnableToCompleteRequestException(response.text)
         return response.text
